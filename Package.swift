@@ -6,6 +6,7 @@ import PackageDescription
 let package = Package(
     name: "WindowKit",
     platforms: [
+        .macOS(.v10_15), // <-- Added this line
         .iOS(.v14),
         .tvOS(.v14),
         .visionOS(.v1)
@@ -17,6 +18,7 @@ let package = Package(
         )
     ],
     dependencies: [
+        // Use the specific products from the packages
         .package(url: "https://github.com/divadretlaw/WindowReader", from: "3.0.0"),
         .package(url: "https://github.com/divadretlaw/WindowSceneReader", from: "3.2.0")
     ],
@@ -24,8 +26,9 @@ let package = Package(
         .target(
             name: "WindowKit",
             dependencies: [
-                "WindowReader",
-                "WindowSceneReader"
+                // Reference the products correctly
+                .product(name: "WindowReader", package: "WindowReader"),
+                .product(name: "WindowSceneReader", package: "WindowSceneReader")
             ]
         )
     ]
